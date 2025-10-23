@@ -1,0 +1,1 @@
+# nest-fastify-prisma-boilerplate

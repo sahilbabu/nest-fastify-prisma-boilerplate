@@ -1,0 +1,29 @@
+{{#> layout appName="NestJS App" tagline="Email Verification" supportEmail="support@example.com" year="2024"}}
+<h1>Verify Your Email Address</h1>
+
+<p>Hi {{name}},</p>
+
+<p>Thank you for signing up! To complete your registration and start using your account, please verify your email address by clicking the button below.</p>
+
+<div class="text-center mb-30">
+    <a href="{{verificationLink}}" class="btn">Verify Email</a>
+</div>
+
+<p>This verification link will expire in 24 hours for security reasons.</p>
+
+<p>If the button above doesn't work, you can copy and paste the following link into your browser:</p>
+<p style="word-break: break-all; color: #666; font-size: 14px;">{{verificationLink}}</p>
+
+<div style="background-color: #f8f9fa; padding: 15px; border-radius: 6px; margin: 20px 0;">
+    <p style="margin: 0; font-size: 14px; color: #495057;">
+        <strong>Didn't create an account?</strong> If you didn't create an account with us, you can safely ignore this email.
+    </p>
+</div>
+
+<p>Once verified, you'll have full access to all our features and services.</p>
+
+<p>
+    Best regards,<br>
+    The {{appName}} Team
+</p>
+{{/layout}}

@@ -1,0 +1,31 @@
+{
+  "hello": "Hello!",
+  "errors": {
+    "validation_failed": "Validation failed",
+    "not_found": "Resource not found",
+    "unauthorized": "Unauthorized access",
+    "forbidden": "Access forbidden",
+    "internal_server_error": "Internal server error",
+    "bad_request": "Bad request",
+    "too_many_requests": "Too many requests. Please try again later.",
+    "database_error": "Database error occurred",
+    "unknown_error": "An unknown error occurred"
+  },
+  "success": {
+    "created": "Resource created successfully",
+    "updated": "Resource updated successfully",
+    "deleted": "Resource deleted successfully",
+    "operation_successful": "Operation completed successfully"
+  },
+  "validation": {
+    "required": "{field} is required",
+    "invalid": "{field} is invalid",
+    "min_length": "{field} must be at least {min} characters",
+    "max_length": "{field} must not exceed {max} characters",
+    "email": "Please provide a valid email address",
+    "password_weak": "Password is too weak",
+    "must_be_positive": "{field} must be a positive number",
+    "must_be_integer": "{field} must be an integer",
+    "invalid_format": "{field} has invalid format"
+  }
+}

@@ -1,0 +1,18 @@
+{{#> layout appName="NestJS App" tagline="Notification" supportEmail="support@example.com" year="2024"}}
+<h1>{{title}}</h1>
+
+<p>{{message}}</p>
+
+{{#if actionLink}}
+<div class="text-center mb-30">
+    <a href="{{actionLink}}" class="btn">Take Action</a>
+</div>
+{{/if}}
+
+<p>This is an automated notification from our system. If you have any questions or concerns, please don't hesitate to contact our support team.</p>
+
+<p>
+    Best regards,<br>
+    The {{appName}} Team
+</p>
+{{/layout}}

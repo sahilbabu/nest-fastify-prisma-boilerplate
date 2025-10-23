@@ -1,0 +1,21 @@
+{
+  "profile": {
+    "updated": "Profil mis à jour avec succès",
+    "not_found": "Profil utilisateur non trouvé"
+  },
+  "fields": {
+    "email": "Email",
+    "password": "Mot de passe",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "username": "Nom d'utilisateur",
+    "role": "Rôle"
+  },
+  "errors": {
+    "not_found": "Utilisateur non trouvé",
+    "already_exists": "L'utilisateur existe déjà",
+    "cannot_delete_self": "Vous ne pouvez pas supprimer votre propre compte",
+    "invalid_role": "Rôle d'utilisateur invalide",
+    "emailOrUsernameExists": "L'email ou nom d'utilisateur existe déjà"
+  }
+}

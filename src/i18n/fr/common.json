@@ -1,0 +1,31 @@
+{
+  "hello": "Bonjour!",
+  "errors": {
+    "validation_failed": "Échec de la validation",
+    "not_found": "Ressource non trouvée",
+    "unauthorized": "Accès non autorisé",
+    "forbidden": "Accès interdit",
+    "internal_server_error": "Erreur interne du serveur",
+    "bad_request": "Mauvaise requête",
+    "too_many_requests": "Trop de requêtes. Veuillez réessayer plus tard.",
+    "database_error": "Erreur de base de données",
+    "unknown_error": "Une erreur inconnue s'est produite"
+  },
+  "success": {
+    "created": "Ressource créée avec succès",
+    "updated": "Ressource mise à jour avec succès",
+    "deleted": "Ressource supprimée avec succès",
+    "operation_successful": "Opération terminée avec succès"
+  },
+  "validation": {
+    "required": "{field} est requis",
+    "invalid": "{field} est invalide",
+    "min_length": "{field} doit contenir au moins {min} caractères",
+    "max_length": "{field} ne doit pas dépasser {max} caractères",
+    "email": "Veuillez fournir une adresse email valide",
+    "password_weak": "Le mot de passe est trop faible",
+    "must_be_positive": "{field} doit être un nombre positif",
+    "must_be_integer": "{field} doit être un nombre entier",
+    "invalid_format": "{field} a un format invalide"
+  }
+}

@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Generated files
+src/generated/
+prisma/generated/
+
+# Coverage
+coverage/
+
+# Logs
+logs/
+*.log
+
+# Database files
+*.db
+*.sqlite
+
+# Lock files
+package-lock.json
+# yarn.lock
+pnpm-lock.yaml
+
+# Cache directories
+.cache/
+.jest-cache/
+.eslintcache
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Backup files
+*.backup
+*.bak

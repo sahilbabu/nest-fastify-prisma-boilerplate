@@ -1,0 +1,156 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":separateMajorReleases",
+    ":combinePatchMinorReleases"
+  ],
+  "baseBranches": ["main"],
+  "timezone": "UTC",
+  "schedule": ["before 3am on Monday"],
+  "labels": ["dependencies"],
+  "assignees": [],
+  "reviewers": [],
+  "prConcurrentLimit": 5,
+  "prCreation": "immediate",
+  "prHourlyLimit": 0,
+  "updateNotScheduled": false,
+  "ignoreTests": false,
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "description": "Group NestJS packages together",
+      "matchPackagePatterns": ["^@nestjs/"],
+      "groupName": "NestJS packages",
+      "automerge": false
+    },
+    {
+      "description": "Group Prisma packages together",
+      "matchPackagePatterns": ["^@prisma/", "^prisma$"],
+      "groupName": "Prisma packages",
+      "automerge": false
+    },
+    {
+      "description": "Group Fastify packages together",
+      "matchPackagePatterns": ["^@fastify/"],
+      "groupName": "Fastify packages",
+      "automerge": false
+    },
+    {
+      "description": "Group ESLint and related packages",
+      "matchPackagePatterns": ["^@eslint/", "^eslint", "typescript-eslint"],
+      "groupName": "ESLint packages",
+      "automerge": false
+    },
+    {
+      "description": "Group Jest and testing packages",
+      "matchPackagePatterns": [
+        "^jest",
+        "^@types/jest",
+        "ts-jest",
+        "supertest",
+        "@types/supertest"
+      ],
+      "groupName": "Testing packages",
+      "automerge": false
+    },
+    {
+      "description": "Group TypeScript and related type definitions",
+      "matchPackagePatterns": [
+        "^typescript$",
+        "^@types/",
+        "ts-node",
+        "ts-loader",
+        "tsconfig-paths"
+      ],
+      "groupName": "TypeScript and type definitions",
+      "automerge": false
+    },
+    {
+      "description": "Group SWC packages",
+      "matchPackagePatterns": ["^@swc/"],
+      "groupName": "SWC packages",
+      "automerge": false
+    },
+    {
+      "description": "Automerge patch updates for non-major packages",
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Automerge minor updates for devDependencies only",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Require approval for major updates",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "labels": ["dependencies", "major-update"]
+    },
+    {
+      "description": "Pin Docker base images to specific versions",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["node", "postgres", "redis", "adminer"],
+      "pinDigests": true,
+      "automerge": false
+    },
+    {
+      "description": "Group Docker image updates",
+      "matchDatasources": ["docker"],
+      "groupName": "Docker images",
+      "schedule": ["before 3am on the first day of the month"]
+    },
+    {
+      "description": "Separate security updates",
+      "matchUpdateTypes": ["patch"],
+      "matchPackagePatterns": ["*"],
+      "labels": ["dependencies", "security"],
+      "prPriority": 10
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security", "dependencies"],
+    "automerge": false,
+    "prCreation": "immediate"
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 3am on the first day of the month"],
+    "automerge": true,
+    "automergeType": "pr",
+    "automergeStrategy": "squash"
+  },
+  "docker": {
+    "enabled": true,
+    "pinDigests": false
+  },
+  "dockerfile": {
+    "enabled": true
+  },
+  "docker-compose": {
+    "enabled": true
+  },
+  "postUpdateOptions": ["npmDedupe"],
+  "npm": {
+    "minimumReleaseAge": "3 days"
+  },
+  "prBodyTemplate": "{{{header}}}{{{table}}}{{{notes}}}{{{changelogs}}}{{{configDescription}}}{{{controls}}}{{{footer}}}",
+  "prBodyDefinitions": {
+    "Package": "**{{{depName}}}**",
+    "Type": "{{{depType}}}",
+    "Update": "{{{updateType}}}",
+    "Change": "`{{{displayFrom}}}` -> `{{{displayTo}}}`"
+  },
+  "separateMinorPatch": false,
+  "separateMajorMinor": true,
+  "separateMultipleMajor": true
+}

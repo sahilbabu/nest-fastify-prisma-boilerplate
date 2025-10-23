@@ -1,0 +1,29 @@
+# Development Dockerfile with hot reload
+FROM node:22.20.0-alpine@sha256:dbcedd8aeab47fbc0f4dd4bffa55b7c3c729a707875968d467aaaea42d6225af
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies for native modules
+RUN apk add --no-cache libc6-compat python3 make g++
+
+# Copy package files
+COPY package.json yarn.lock* ./
+
+# Install all dependencies (including dev dependencies)
+RUN yarn install --frozen-lockfile
+
+# Copy source code
+COPY . .
+
+# Generate Prisma client
+RUN npx prisma generate
+
+# Create logs directory
+RUN mkdir -p logs
+
+# Expose ports
+EXPOSE 3000 9229
+
+# Start development server with hot reload
+CMD ["yarn", "start:debug"]

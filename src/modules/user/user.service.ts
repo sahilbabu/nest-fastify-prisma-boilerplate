@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { I18nService } from 'nestjs-i18n';
 
 import { QueryUserDto } from './dto/query-user.dto';
@@ -7,16 +12,14 @@ import { UpdateProfileDto } from './dto/update-profile.dto';
 import { CurrentUserType } from '@/src/common/decorators/current-user.decorator';
 import { Hashing } from '@/src/common/utils/hashing.util';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
+import { UserRole, ROLE_HIERARCHY } from '@/src/modules/rbac/enums/user-role.enum';
 
 @Injectable()
 export class UserService {
   private readonly prismaService: PrismaService;
   private readonly i18n: I18nService;
 
-  constructor(
-    prismaService: PrismaService,
-    i18n: I18nService,
-  ) {
+  constructor(prismaService: PrismaService, i18n: I18nService) {
     this.prismaService = prismaService;
     this.i18n = i18n;
   }
@@ -67,6 +70,52 @@ export class UserService {
     return {
       message: successMessage,
       user: updatedUser,
+    };
+  }
+
+  async updateUserRole(
+    userId: number,
+    newRole: UserRole,
+    currentUser: CurrentUserType,
+  ): Promise<{ message: string; user: unknown }> {
+    // Check if the target user exists
+    const targetUser = await this.prismaService.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!targetUser) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Prevent owners from being demoted (only owners can change owner roles)
+    if (targetUser.role === UserRole.OWNER && currentUser.role !== UserRole.OWNER) {
+      throw new ForbiddenException('Only owners can modify owner roles');
+    }
+
+    // Prevent users from assigning roles higher than their own
+    const currentUserLevel = ROLE_HIERARCHY[currentUser.role as UserRole];
+    const newRoleLevel = ROLE_HIERARCHY[newRole];
+
+    if (newRoleLevel >= currentUserLevel && currentUser.role !== UserRole.OWNER) {
+      throw new ForbiddenException('Cannot assign a role equal to or higher than your own');
+    }
+
+    // Update the user's role
+    const updatedUser = await this.prismaService.prisma.user.update({
+      where: { id: userId },
+      data: { role: newRole },
+    });
+
+    const successMessage = this.i18n.t('user.role.updated');
+
+    return {
+      message: successMessage,
+      user: {
+        id: updatedUser.id,
+        email: updatedUser.email,
+        username: updatedUser.username,
+        role: updatedUser.role,
+      },
     };
   }
 }

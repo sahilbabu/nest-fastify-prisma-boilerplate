@@ -1,17 +1,18 @@
+import { randomUUID } from 'crypto';
+import * as path from 'path';
+
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { v4 as uuidv4 } from 'uuid';
-import * as path from 'path';
 import dayjs from 'dayjs';
 
-import { IStorageDriver } from './drivers/storage-driver.interface';
+import { AzureStorageDriver } from './drivers/azure-storage.driver';
 import { LocalStorageDriver } from './drivers/local-storage.driver';
 import { S3StorageDriver } from './drivers/s3-storage.driver';
+import { IStorageDriver } from './drivers/storage-driver.interface';
 import { WasabiStorageDriver } from './drivers/wasabi-storage.driver';
-import { AzureStorageDriver } from './drivers/azure-storage.driver';
+import { FileResponseDto } from './dto/file-response.dto';
 
 import { PrismaService } from '@/src/core/prisma/prisma.service';
-import { FileResponseDto } from './dto/file-response.dto';
 
 @Injectable()
 export class StorageService {
@@ -31,7 +32,9 @@ export class StorageService {
   ) {
     this.storageDriver = this.configService.get<string>('STORAGE_DRIVER') ?? 'local';
     this.maxFileSizeMB = this.configService.get<number>('MAX_PHOTO_SIZE_MB') ?? 8;
-    const allowedTypes = this.configService.get<string>('ALLOWED_PHOTO_TYPES') ?? 'image/jpeg,image/png,image/webp,image/heic';
+    const allowedTypes =
+      this.configService.get<string>('ALLOWED_PHOTO_TYPES') ??
+      'image/jpeg,image/png,image/webp,image/heic';
     this.allowedMimeTypes = allowedTypes.split(',').map(t => t.trim());
 
     this.driver = this.getDriver();
@@ -128,7 +131,7 @@ export class StorageService {
   }
 
   async cleanupOrphanedFiles(): Promise<{ deletedCount: number; message: string }> {
-    const retentionDays = this.configService.get<number>('ORPHANED_FILES_RETENTION_DAYS') || 30;
+    const retentionDays = this.configService.get<number>('ORPHANED_FILES_RETENTION_DAYS') ?? 30;
     const cutoffDate = dayjs().subtract(retentionDays, 'days').toDate();
 
     const orphanedFiles = await this.prismaService.prisma.file.findMany({
@@ -160,14 +163,21 @@ export class StorageService {
     };
   }
 
-  private validateFile(file: { buffer: Buffer; filename: string; mimetype: string; size: number }): void {
+  private validateFile(file: {
+    buffer: Buffer;
+    filename: string;
+    mimetype: string;
+    size: number;
+  }): void {
     if (!file) {
       throw new BadRequestException('No file provided');
     }
 
     const fileSizeMB = file.size / (1024 * 1024);
     if (fileSizeMB > this.maxFileSizeMB) {
-      throw new BadRequestException(`File size exceeds maximum allowed size of ${this.maxFileSizeMB}MB`);
+      throw new BadRequestException(
+        `File size exceeds maximum allowed size of ${this.maxFileSizeMB}MB`,
+      );
     }
 
     if (!this.allowedMimeTypes.includes(file.mimetype)) {
@@ -177,7 +187,10 @@ export class StorageService {
     }
   }
 
-  async listFiles(page: number = 1, limit: number = 10): Promise<{
+  async listFiles(
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<{
     files: FileResponseDto[];
     total: number;
     page: number;
@@ -211,7 +224,7 @@ export class StorageService {
 
   private generateFilename(originalName: string): string {
     const ext = path.extname(originalName);
-    const filename = `${uuidv4()}${ext}`;
+    const filename = `${randomUUID()}${ext}`;
     return filename;
   }
 

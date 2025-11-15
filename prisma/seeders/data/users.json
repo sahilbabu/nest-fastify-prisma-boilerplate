@@ -1,8 +1,44 @@
 [
   {
+    "username": "owner",
+    "email": "owner@example.com",
+    "password": "#Pass1234",
+    "role": "OWNER"
+  },
+  {
     "username": "admin",
     "email": "admin@example.com",
-    "password": "#Pass1234"
+    "password": "#Pass1234",
+    "role": "ADMINISTRATOR"
+  },
+  {
+    "username": "manager",
+    "email": "manager@example.com",
+    "password": "#Pass1234",
+    "role": "MANAGER"
+  },
+  {
+    "username": "staff",
+    "email": "staff@example.com",
+    "password": "#Pass1234",
+    "role": "STAFF"
+  },
+  {
+    "username": "user",
+    "email": "user@example.com",
+    "password": "#Pass1234",
+    "role": "USER"
+  },
+  {
+    "username": "customer",
+    "email": "customer@example.com",
+    "password": "#Pass1234",
+    "role": "CUSTOMER"
+  },
+  {
+    "username": "subscriber",
+    "email": "subscriber@example.com",
+    "password": "#Pass1234",
+    "role": "SUBSCRIBER"
   }
 ]
-

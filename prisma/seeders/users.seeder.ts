@@ -13,12 +13,14 @@ export async function usersSeeder(prisma: PrismaClient) {
       where: { email: user.email },
       update: {
         password: await Hashing.hash(user.password),
-        username: user.username
+        username: user.username,
+        role: user.role || 'USER',
       },
       create: {
         email: user.email,
         password: await Hashing.hash(user.password),
-        username: user.username
+        username: user.username,
+        role: user.role || 'USER',
       },
     }),
   );

@@ -1,3 +1,13 @@
+enum UserRole {
+  OWNER
+  ADMINISTRATOR
+  MANAGER
+  STAFF
+  USER
+  CUSTOMER
+  SUBSCRIBER
+}
+
 model User {
   id              Int       @id @default(autoincrement())
   createdAt       DateTime  @default(now())
@@ -10,6 +20,7 @@ model User {
   username        String   @unique
   password        String
   avatar          String?
+  role            UserRole  @default(CUSTOMER)
 
   refreshToken    String?
   refreshTokenExp DateTime?

@@ -9,6 +9,7 @@ import { LoggerModule } from './core/logger/logger.module';
 import { MailModule } from './core/mail/mail.module';
 import { PrismaModule } from './core/prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { RbacModule } from './modules/rbac/rbac.module';
 import { StorageModule } from './modules/storage/storage.module';
 import { UserModule } from './modules/user/user.module';
 
@@ -24,6 +25,7 @@ import { UserModule } from './modules/user/user.module';
     // Feature modules
     UserModule,
     AuthModule,
+    RbacModule,
     StorageModule,
 
     // Common utilities

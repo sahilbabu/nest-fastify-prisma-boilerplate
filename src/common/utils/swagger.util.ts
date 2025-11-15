@@ -25,7 +25,6 @@ export function setupSwagger(app: NestFastifyApplication): void {
     .addTag('Auth', 'Authentication endpoints')
     .addTag('Users', 'User management endpoints')
     .addTag('Storage', 'File storage and management endpoints')
-    .addTag('Health', 'Health check endpoints')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

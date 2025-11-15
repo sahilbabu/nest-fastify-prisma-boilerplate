@@ -49,10 +49,10 @@ It provides a **robust**, **scalable foundation** for building **modern TypeScri
 - ✅ **E2E and unit tests** — with Jest testing framework
 
 ### 🤞 Checklist Features
+- [x] **RBAC** Module  Role-Based Access Control (RBAC) Module
+- [ ] **Caching** Module with Redis
 - [ ] **CI/CD** (Github Actions) Pipeline
 - [ ] **Social** sign in (Apple, Facebook, Google, Twitter). 
-- [ ] **RBAC** Module  Role-Based Access Control (RBAC) Module
-- [ ] **Caching** Module with Redis
 - [ ] **notifications** webhook notifications
 
 ### ⚙️ Architecture & Performance

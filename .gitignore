@@ -171,3 +171,5 @@ Docs/*
 uploads/*
 !uploads/.gitkeep
 
+.jest-cache/
+

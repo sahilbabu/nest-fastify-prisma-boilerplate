@@ -26,7 +26,7 @@ services:
 
   # PostgreSQL Database
   postgres:
-    image: postgres:18-alpine@sha256:f898ac406e1a9e05115cc2efcb3c3abb3a92a4c0263f3b6f6aaae354cbb1953a
+    image: postgres:18-alpine@sha256:b40d931bd0e7ce6eecc59a5a6ac3b3c04a01e559750e73e7086b6dbd7f8bf545
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -47,7 +47,7 @@ services:
 
   # Redis Cache
   redis:
-    image: redis:8-alpine@sha256:59b6e694653476de2c992937ebe1c64182af4728e54bb49e9b7a6c26614d8933
+    image: redis:8-alpine@sha256:6cbef353e480a8a6e7f10ec545f13d7d3fa85a212cdcc5ffaf5a1c818b9d3798
     ports:
       - "6379:6379"
     volumes:
@@ -59,7 +59,7 @@ services:
 
   # Development Database (optional)
   postgres-dev:
-    image: postgres:18-alpine@sha256:f898ac406e1a9e05115cc2efcb3c3abb3a92a4c0263f3b6f6aaae354cbb1953a
+    image: postgres:18-alpine@sha256:b40d931bd0e7ce6eecc59a5a6ac3b3c04a01e559750e73e7086b6dbd7f8bf545
     environment:
       POSTGRES_USER: dev_user
       POSTGRES_PASSWORD: dev_password
@@ -75,7 +75,7 @@ services:
 
   # Adminer for database management
   adminer:
-    image: adminer:5-standalone@sha256:bf7ea9bd62afd2d34045b4098ad68feb4a08ad9f75f28dc5d9b7d6d84d63005c
+    image: adminer:5-standalone@sha256:ae1d4d7774c544d084e42887a318e6b0f47ad8c60fe1661d9278ef169c8b4eaa
     ports:
       - "8080:8080"
     depends_on:
